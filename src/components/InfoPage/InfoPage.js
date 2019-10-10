@@ -1,18 +1,36 @@
-import React from 'react';
-import AddItem from '../AddItem/AddItem'
+import React, {Component} from 'react';
+import axios from 'axios'; 
+ 
+class InfoPage extends Component {
 
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
+state = {
+  shelf: []
+}
 
-const InfoPage = () => (
-  <div>
-    <div>
-      Shelf Page
+componentDidMount() {
+  this.getShelf();
+}
+
+getShelf = () => {
+  axios.get('/api/shelf').then(response => {
+    console.log('GET request', response.data);
+    this.setState({
+      shelf: response.data
+    })
+  }).catch(error => {
+    console.log('Error with GET request client', error);
+  })
+}
+
+
+  render() {
+    return(
       <AddItem />
-    </div>
-  </div>
-);
+      <p>{JSON.stringify(this.state.shelf)}</p>
+    )
+  }
+}
+
+ 
 
 export default InfoPage;
