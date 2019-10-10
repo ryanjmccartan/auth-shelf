@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 class AddItem extends Component {
 
@@ -24,9 +25,19 @@ class AddItem extends Component {
     // Button to Add Item
     handleAdd = () => {
         console.log('in AddButton');
-        this.props.dispatch({
-            type: 'POST_ITEM', payload: this.state.item
-        })
+        // this.props.dispatch({
+        //     type: 'POST_ITEM', payload: this.state.item
+        // })
+        axios({
+            method: 'POST',
+            url: '/api/shelf',
+            data: this.state.item
+          }).then((response) => {
+            console.log('in handleAdd', response.data);
+            }).catch((error) => {
+            console.log('error', error);
+          })
+
     }
     render () {
         return (
