@@ -1,11 +1,15 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+
 
 /**
  * Get all of the items on the shelf
  */
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
+    console.log('req.user:', req.user);
+    console.log('is authenticated?', req.isAuthenticated() );
     console.log('/shelf GET route');
     let queryText = 'SELECT * FROM "item";';
     pool.query(queryText).then(results => {
@@ -29,7 +33,17 @@ router.post('/', (req, res) => {
 /**
  * Delete an item if it's something the logged in user added
  */
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    console.log('in /delete route');
+    let queryText = `DELETE FROM "item" WHERE "id" = $1 AND "user_id" = $2;`;
+    pool.query(queryText, [req.params.id, req.user.user_id])
+    .then( (results) => {
+        console.log('delete successful', results);
+        res.sendStatus(200);
+    }).catch(error => {
+        console.log('Problem with Delete request', error);
+        res.sendStatus(500);
+    })
 
 });
 

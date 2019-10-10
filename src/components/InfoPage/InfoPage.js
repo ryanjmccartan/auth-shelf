@@ -27,20 +27,28 @@ getShelf = () => {
   })
 }
 
+deleteItem = (id) => {
+  axios.delete('api/shelf' + id).then(response => {
+    console.log('DELETE request', response.data);
+  }).catch(error => {
+    console.log('Error with DELETE request', error);
+  })
+}
+
 
   render() {
     return(
-      <p>{JSON.stringify(this.state.shelf)}</p>
+      <ul>{this.state.shelf.map(item => {
+        return <li>{item.description}
+                  <button onClick={this.deleteItem(item.id)}>Delete</button>
+                  <br/>
+                  <img src={item.image_url}/> 
+               </li>
+      })}
+      </ul>
     )
   }
 }
 
-// const InfoPage = () => (
-//   <div>
-//     <p>
-//       Shelf Page
-//     </p>
-//   </div>
-// );
 
 export default InfoPage;
