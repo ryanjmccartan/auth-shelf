@@ -24,8 +24,9 @@ getShelf = () => {
 }
 
 deleteItem = (id) => {
-  axios.delete('api/shelf' + id).then(response => {
+  axios.delete('api/shelf/' + id).then(response => {
     console.log('DELETE request', response.data);
+    this.getShelf();
   }).catch(error => {
     console.log('Error with DELETE request', error);
   })
@@ -38,7 +39,7 @@ deleteItem = (id) => {
       <AddItem />
       <ul>{this.state.shelf.map(item => {
         return <li>{item.description}
-                  <button onClick={this.deleteItem(item.id)}>Delete</button>
+                  <button onClick={() => {this.deleteItem(item.id)}}>Delete</button>
                   <br/>
                   <img src={item.image_url}/> 
                </li>
