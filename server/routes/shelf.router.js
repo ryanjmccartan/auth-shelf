@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     console.log('/shelf GET route');
     let queryText = 'SELECT * FROM "item";';
     pool.query(queryText).then(results => {
-        res.sendStatus(200);
+        // res.sendStatus(200);
         res.send(results.rows)
     }).catch( error => {
         console.log('Error making GET request', error);
