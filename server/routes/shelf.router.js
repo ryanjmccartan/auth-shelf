@@ -6,7 +6,15 @@ const router = express.Router();
  * Get all of the items on the shelf
  */
 router.get('/', (req, res) => {
-    res.sendStatus(200); // For testing only, can be removed
+    console.log('/shelf GET route');
+    let queryText = 'SELECT * FROM "item";';
+    pool.query(queryText).then(results => {
+        res.sendStatus(200);
+        res.send(results.rows)
+    }).catch( error => {
+        console.log('Error making GET request', error);
+        res.sendStatus(500);
+    })
 });
 
 
