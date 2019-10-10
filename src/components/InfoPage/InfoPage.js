@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios'; 
-// import AddItem from 
+import AddItem from '../AddItem/AddItem';
  
 class InfoPage extends Component {
 
@@ -35,7 +35,7 @@ deleteItem = (id) => {
   render() {
     return(
       <div>
-      {/* <AddItem /> */}
+      <AddItem />
       <ul>{this.state.shelf.map(item => {
         return <li>{item.description}
                   <button onClick={this.deleteItem(item.id)}>Delete</button>

@@ -46,7 +46,6 @@ class AddItem extends Component {
                 <input onChange={(event) => {this.handleChange(event, 'description')}} placeholder="item"></input>
                 <input onChange={(event) => {this.handleChange(event, 'image_url')}} placeholder="image URL"></input>
                 <button onClick={this.handleAdd}>Add Item</button>
-                <pre>{JSON.stringify(this.state)}</pre>
             </div>
         )
     }
