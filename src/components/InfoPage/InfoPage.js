@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
-import axios from 'axios';
-
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
-
+import axios from 'axios'; 
+// import AddItem from 
+ 
 class InfoPage extends Component {
 
 state = {
@@ -38,6 +34,8 @@ deleteItem = (id) => {
 
   render() {
     return(
+      <div>
+      {/* <AddItem /> */}
       <ul>{this.state.shelf.map(item => {
         return <li>{item.description}
                   <button onClick={this.deleteItem(item.id)}>Delete</button>
@@ -46,9 +44,11 @@ deleteItem = (id) => {
                </li>
       })}
       </ul>
+      </div>
     )
   }
 }
 
+ 
 
 export default InfoPage;
