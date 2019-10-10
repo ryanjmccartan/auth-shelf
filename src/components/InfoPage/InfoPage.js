@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios'; 
+import AddItem from '../AddItem/AddItem';
  
 class InfoPage extends Component {
 
@@ -22,11 +23,28 @@ getShelf = () => {
   })
 }
 
+deleteItem = (id) => {
+  axios.delete('api/shelf' + id).then(response => {
+    console.log('DELETE request', response.data);
+  }).catch(error => {
+    console.log('Error with DELETE request', error);
+  })
+}
+
 
   render() {
     return(
+      <div>
       <AddItem />
-      <p>{JSON.stringify(this.state.shelf)}</p>
+      <ul>{this.state.shelf.map(item => {
+        return <li>{item.description}
+                  <button onClick={this.deleteItem(item.id)}>Delete</button>
+                  <br/>
+                  <img src={item.image_url}/> 
+               </li>
+      })}
+      </ul>
+      </div>
     )
   }
 }
