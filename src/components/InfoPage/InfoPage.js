@@ -36,9 +36,9 @@ deleteItem = (id) => {
   render() {
     return(
       <div>
-      <AddItem />
+      <AddItem getShelf={this.getShelf}/>
       <ul>{this.state.shelf.map(item => {
-        return <li>{item.description}
+        return <li key={item.id}>{item.description}
                   <button onClick={() => {this.deleteItem(item.id)}}>Delete</button>
                   <br/>
                   <img src={item.image_url}/> 

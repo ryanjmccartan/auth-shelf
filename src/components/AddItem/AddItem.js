@@ -34,6 +34,7 @@ class AddItem extends Component {
             data: this.state.item
           }).then((response) => {
             console.log('in handleAdd', response.data);
+            this.props.getShelf();
             }).catch((error) => {
             console.log('error', error);
           })
